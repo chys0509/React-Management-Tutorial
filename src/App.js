@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
-import './App.css';
 import Customer from './components/Customer';
+import './App.css';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 // 고객정보 추가 방법
+// material Ui 활용 및 스타일 작업
+const styles = theme => ({
+  root: {
+    width : '100%',
+    marginTop : theme.spacing.unit * 3,
+    overflowX : "auto"
+  },
+  table: {
+    minWidth: 1080
+  }
+})
+
 const customers = [
   {
      'id' : 1,
@@ -33,57 +52,27 @@ const customers = [
 
 class App extends Component {
   render(){
+    const { classes } = this.props;
     return (
-      // Customer => src/components/Customer.js
-      //<Customer/>
-      <div>
-
-     {/* <Customer
-      id={customers[0].id}
-      name={customers[0].name}
-      birthday={customers[0].birthday}
-      gender={customers[0].gender}
-      job={customers[0].job}
-      />
-
-      <Customer
-      id={customers[1].id}
-      name={customers[1].name}
-      birthday={customers[1].birthday}
-      gender={customers[1].gender}
-      job={customers[1].job}
-      />
-
-      <Customer
-      id={customers[2].id}
-      name={customers[2].name}
-      birthday={customers[2].birthday}
-      gender={customers[2].gender}
-      job={customers[2].job}
-     />*/}
-
-     {/*자바스크립트 제공 'map' 이 기능은 관리하기에 아주 좋다 */}
-     {/* 'key'는 아이디 중복 방지 */}
-     {/* props는 해당 함수를 보내는 역할 */}
-
-
-     {
-       customers.map(c => {
-         return (
-  
-         <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/>  
-          
-         
-         )
-       })
-     }
-
-
-     </div>
-
-
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+            <TableCell>번호</TableCell>
+            <TableCell>이미지</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>생년월일</TableCell>
+            <TableCell>성별</TableCell>
+            <TableCell>직업</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {customers.map(c => {return (<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/>)})}
+          </TableBody>
+        </Table>
+     </Paper>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
